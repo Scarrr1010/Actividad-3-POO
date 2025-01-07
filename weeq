@@ -1,0 +1,174 @@
+import math
+from tkinter import *
+from tkinter import messagebox
+
+# Definición de las clases
+class Cuadrado:
+    def __init__(self, lado):
+        self.Lado = lado
+
+    def areaCu(self):
+        return math.pow(self.Lado, 2)
+
+    def PeriCu(self):
+        return self.Lado * 4
+
+
+class Rectangulo:
+    def __init__(self, base, altura):
+        self.base = base
+        self.altura = altura
+
+    def areaRec(self):
+        return self.base * self.altura
+
+    def PeriRec(self):
+        return 2 * (self.base + self.altura)
+
+
+class Circulo:
+    def __init__(self, radio):
+        self.radio = radio
+
+    def areaCir(self):
+        return math.pi * math.pow(self.radio, 2)
+
+    def periCir(self):
+        return 2 * math.pi * self.radio
+
+
+class Triangulo:
+    def __init__(self, base, altura):
+        self.base = base
+        self.altura = altura
+
+    def areaTri(self):
+        return (self.base * self.altura) / 2
+
+    def PeriTri(self):
+        return self.base + self.altura + self.hipotenusa()
+
+    def hipotenusa(self):
+        return math.sqrt(math.pow(self.base, 2) + math.pow(self.altura, 2))
+
+    def TipoTri(self):
+        hipo = self.hipotenusa()
+        if self.base == self.altura and self.base == hipo:
+            return "Equilátero"
+        elif self.base == self.altura or self.base == hipo or self.altura == hipo:
+            return "Isósceles"
+        else:
+            return "Escaleno"
+
+
+# Funciones para manejar la interfaz
+def mostrar_campos(*args):
+    # Ocultar todos los campos primero
+    for widget in campos_frame.winfo_children():
+        widget.pack_forget()
+
+    figura = figura_seleccionada.get()
+
+    if figura == "Cuadrado":
+        Label(campos_frame, text="Lado:", bg="Purple", fg="white").pack()
+        entry_lado.pack()
+        Button(campos_frame, text="Calcular Cuadrado", command=calcular_cuadrado).pack()
+
+    elif figura == "Rectángulo":
+        Label(campos_frame, text="Base:", bg="Purple", fg="white").pack()
+        entry_base.pack()
+        Label(campos_frame, text="Altura:", bg="Purple", fg="white").pack()
+        entry_altura.pack()
+        Button(campos_frame, text="Calcular Rectángulo", command=calcular_rectangulo).pack()
+
+    elif figura == "Círculo":
+        Label(campos_frame, text="Radio:", bg="Purple", fg="white").pack()
+        entry_radio.pack()
+        Button(campos_frame, text="Calcular Círculo", command=calcular_circulo).pack()
+
+    elif figura == "Triángulo":
+        Label(campos_frame, text="Base:", bg="Purple", fg="white").pack()
+        entry_base_tri.pack()
+        Label(campos_frame, text="Altura:", bg="Purple", fg="white").pack()
+        entry_altura_tri.pack()
+        Button(campos_frame, text="Calcular Triángulo", command=calcular_triangulo).pack()
+
+
+# Funciones para cálculos
+def calcular_cuadrado():
+    try:
+        lado = float(entry_lado.get())
+        cuadrado = Cuadrado(lado)
+        area = cuadrado.areaCu()
+        perimetro = cuadrado.PeriCu()
+        messagebox.showinfo("Resultados Cuadrado", f"Área: {area}\nPerímetro: {perimetro}")
+    except ValueError:
+        messagebox.showerror("Error", "Por favor, ingresa un valor numérico válido.")
+
+
+def calcular_rectangulo():
+    try:
+        base = float(entry_base.get())
+        altura = float(entry_altura.get())
+        rectangulo = Rectangulo(base, altura)
+        area = rectangulo.areaRec()
+        perimetro = rectangulo.PeriRec()
+        messagebox.showinfo("Resultados Rectángulo", f"Área: {area}\nPerímetro: {perimetro}")
+    except ValueError:
+        messagebox.showerror("Error", "Por favor, ingresa valores numéricos válidos.")
+
+
+def calcular_circulo():
+    try:
+        radio = float(entry_radio.get())
+        circulo = Circulo(radio)
+        area = circulo.areaCir()
+        perimetro = circulo.periCir()
+        messagebox.showinfo("Resultados Círculo", f"Área: {area}\nPerímetro: {perimetro}")
+    except ValueError:
+        messagebox.showerror("Error", "Por favor, ingresa un valor numérico válido.")
+
+
+def calcular_triangulo():
+    try:
+        base = float(entry_base_tri.get())
+        altura = float(entry_altura_tri.get())
+        triangulo = Triangulo(base, altura)
+        area = triangulo.areaTri()
+        perimetro = triangulo.PeriTri()
+        tipo = triangulo.TipoTri()
+        messagebox.showinfo(
+            "Resultados Triángulo",
+            f"Área: {area}\nPerímetro: {perimetro}\nTipo: {tipo}"
+        )
+    except ValueError:
+        messagebox.showerror("Error", "Por favor, ingresa valores numéricos válidos.")
+
+
+# Configuración de la ventana principal
+raiz = Tk()
+raiz.title("Datos Figuras Geométricas")
+raiz.config(bg="Purple")
+
+# Menú de selección
+figura_seleccionada = StringVar()
+figura_seleccionada.set("Selecciona una figura")
+
+Label(raiz, text="Elige una figura:", bg="Purple", fg="white").pack(pady=10)
+menu_figuras = OptionMenu(raiz, figura_seleccionada, "Cuadrado", "Rectángulo", "Círculo", "Triángulo", command=mostrar_campos)
+menu_figuras.pack()
+
+# Frame para los campos dinámicos
+campos_frame = Frame(raiz, bg="Purple")
+campos_frame.pack(pady=10)
+
+# Entradas (ocultas inicialmente)
+entry_lado = Entry(campos_frame)
+entry_base = Entry(campos_frame)
+entry_altura = Entry(campos_frame)
+entry_radio = Entry(campos_frame)
+entry_base_tri = Entry(campos_frame)
+entry_altura_tri = Entry(campos_frame)
+
+# Mostrar la ventana principal
+raiz.mainloop()

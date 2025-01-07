@@ -1,0 +1,194 @@
+'''
+from tkinter import *
+
+raiz = Tk()
+
+raiz.title("Ejercicios")
+
+raiz.resizable(True, True)
+
+raiz.config(bg = "purple")
+
+miFrame = Frame()
+
+miFrame.pack(side="left", anchor="n")
+
+miFrame.config(bg = "grey")
+
+miFrame.config(width="650", height="350")
+
+miFrame.config(cursor="pirate")
+
+miFrame.config(bd="35")
+
+miFrame.config(relief="raised",)
+
+raiz.mainloop()
+
+
+
+raiz=Tk()
+
+miFrame = Frame(raiz,width="500",height = "400").pack()
+
+miLabel = Label(miFrame, text="Salo, te amo demasiadooooooo, sin ti, no siento interés por nada", fg="purple", font=("Comic Sans MS", 18)).place(x="30",y="40")
+
+CuadroTexto = Entry(raiz)
+CuadroTexto.pack()
+raiz.mainloop()
+
+'''
+
+
+from tkinter import *
+from tkinter import messagebox
+from tkinter import filedialog
+
+# Crear la ventana principal
+raiz = Tk()
+raiz.title("Ejercicios")
+
+
+def infoAdicional():
+    messagebox.showinfo("Corazon de Samu", "Salo, quiero que sepas que te amo sin fin, que tu vida es la luz en la oscuridad de mi interior... que te necesito para poder vivir, porque eres un espectáculo de mujer. Aveces el ser humano es tan estúpido como para fijarse en otras cosas antes que en lo esencial, pero yo Salo, sé que tú eres lo esencial, y nunca quiero quitarte los ojos de encima...")
+
+def infoLicencia():
+    messagebox.showwarning("Cupon de amor", "Válido para toda la vida si así lo quieresssssssssssssssss")
+
+def SalirApp():
+    valor = messagebox.askokcancel("Salir de mi vida", "Por favor ni lo pienses ;)))))))))")
+    if valor == True:
+        raiz.destroy()
+
+def CerrarDoc():
+    valor = messagebox.askretrycancel("Reintentar", "No ha sido posible cerrar el documento")
+    if valor == False:
+        raiz.destroy()
+
+
+
+miNombre = StringVar()
+opcion = IntVar()
+
+
+
+# Crear un Frame con dimensiones específicas
+miFrame = Frame(raiz, width=500, height=400)
+miFrame.config(cursor="pirate")
+miFrame.pack()
+
+# Crear un cuadro de texto
+CuadroNombre = Entry(miFrame, textvariable=miNombre)
+CuadroNombre.grid(row=0, column=1)
+CuadroNombre.config(fg="purple", justify="center")
+CuadroApellido = Entry(miFrame)
+CuadroApellido.grid(row=1, column=1)
+CuadroApellido.config(fg="purple", justify="center")
+CuadroDireccion = Entry(miFrame)
+CuadroDireccion.grid(row=2, column=1)
+CuadroDireccion.config(fg="purple", justify="center")
+CuadroPass = Entry(miFrame)
+CuadroPass.grid(row=3, column=1)
+CuadroPass.config(show="*",fg="purple", justify="center")
+CuadroComentario = Text(miFrame, width=16, height=5)
+CuadroComentario.grid(row=4, column=1)
+ScrollVertical= Scrollbar(miFrame, command= CuadroComentario.yview)
+ScrollVertical.grid(row=4, column=2, sticky=NSEW)
+CuadroComentario.config(yscrollcommand=ScrollVertical.set)
+
+
+# Crear una etiqueta para el cuadro de texto
+nombreLabel = Label(miFrame, text="Nombre: ", fg="purple", font=("Comic Sans MS",18))
+nombreLabel.grid(row=0, column=0, sticky="e", padx= 10, pady= 10)
+ApellidoLabel = Label(miFrame, text="Apellido: ", fg="orange", font=("Comic Sans MS",18))
+ApellidoLabel.grid(row=1, column=0, sticky="e", padx= 10, pady= 10)
+DireccionLabel = Label(miFrame, text="Dirección: ", fg="blue", font=("Comic Sans MS",18))
+DireccionLabel.grid(row=2, column=0, sticky="e", padx= 10, pady= 10)
+PassLabel = Label(miFrame, text="Contraseña: ", fg="green", font=("Comic Sans MS",18))
+PassLabel.grid(row=3, column=0, sticky="e", padx= 10, pady= 10)
+ComentarioLabel = Label(miFrame, text="Comentario: ", fg="green", font=("Comic Sans MS",18))
+ComentarioLabel.grid(row=4, column=0, sticky="e", padx= 10, pady= 10)
+
+def CodigoBoton():
+    miNombre.set("Samu")
+
+BotonEnvio= Button(raiz, text="Enviar", command=CodigoBoton)
+BotonEnvio.pack()
+
+def Imprimir():
+    if opcion.get() == 1:
+        Etiqueta.config(text= "Has elegido Masculino")
+    if opcion.get() == 2:
+        Etiqueta.config(text= "Has elegido Femenino")
+
+OpcionLabel = Label(raiz, text="Seleccione su genero: ").pack()
+Radiobutton(raiz, text= "Masculino", variable=opcion, value=1, command= Imprimir).pack()
+Radiobutton(raiz, text= "Femenino", variable=opcion, value=2, command = Imprimir).pack()
+
+Etiqueta = Label(raiz)
+Etiqueta.pack()
+
+
+frame2 = Frame(raiz, width=500, height=400)
+frame2.config(cursor="pirate")
+frame2.pack()
+
+mazamorra = IntVar()
+buñuelos = IntVar()
+natilla = IntVar()
+
+def OpcionCompras():
+    OpcionElegida = " "
+
+    if (mazamorra.get()) == 1:
+        OpcionElegida += " mazamorra"
+    if (buñuelos.get()) == 1:
+        OpcionElegida += " buñuelos"
+    if (natilla.get()) == 1:
+        OpcionElegida += " natilla"
+    textoFinal.config(text=OpcionElegida)
+
+
+
+
+ComprasLabel = Label(frame2, text="Elija los productos que desea comprar: ").pack()
+Checkbutton(frame2, text="mazamorra", variable=mazamorra, onvalue=1, offvalue=0, command=OpcionCompras).pack()
+Checkbutton(frame2, text="buñuelos", variable=buñuelos, onvalue=1, offvalue=0, command=OpcionCompras).pack()
+Checkbutton(frame2, text="natilla", variable=natilla, onvalue=1, offvalue=0, command=OpcionCompras).pack()
+
+textoFinal = Label(frame2)
+textoFinal.pack()
+
+
+barraMenu = Menu(raiz)
+
+raiz.config(menu=barraMenu, width=300, height=300)
+
+archivoMenu = Menu(barraMenu, tearoff=0)
+archivoMenu.add_command(label="Nuevo")
+archivoMenu.add_command(label="Guardar")
+archivoMenu.add_command(label="Guardar como")
+archivoMenu.add_separator()
+archivoMenu.add_command(label="Salir", command=SalirApp)
+
+
+edicionMenu = Menu(barraMenu, tearoff=0)
+herramientaMenu = Menu(barraMenu, tearoff=0)
+
+ayudaMenu = Menu(barraMenu, tearoff=0)
+ayudaMenu.add_command(label="Cupon", command=infoLicencia)
+ayudaMenu.add_command(label="Acerca de...", command=infoAdicional)
+
+
+
+
+barraMenu.add_cascade(label="Archivo", menu=archivoMenu)
+barraMenu.add_cascade(label="Edición", menu=edicionMenu)
+barraMenu.add_cascade(label="Herramienta", menu=herramientaMenu)
+barraMenu.add_cascade(label="Ayuda", menu=ayudaMenu)
+
+# Ejecutar el bucle principal de la aplicación
+raiz.mainloop()
+
+
+
