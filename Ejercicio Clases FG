@@ -4,29 +4,38 @@ import math
 from tkinter import *
 from tkinter import messagebox
 
+class Figuras:
+    def __init__(self, figura):
+        self.figura = figura
 
-class Cuadrado:
+    def area(self):
+        pass
+
+    def perimetro(self):
+        pass
+
+class Cuadrado(Figuras):
     def __init__(self,lado):
         self.Lado = lado
     def areaCu(self):
         area = math.pow(self.Lado,2)
         return area
-    def PeriCu(self):
+    def periCu(self):
         perimetro = self.Lado*4
         return perimetro
 
-class Rectangulo:
+class Rectangulo(Figuras):
     def __init__(self,base,altura):
         self.base = base
         self.altura = altura
     def areaRec(self):
         area = (self.base)*(self.altura)
         return area
-    def PeriRec(self):
+    def periRec(self):
         perimetro = 2*(self.base) + 2*(self.altura)
         return perimetro
 
-class Circulo:
+class Circulo(Figuras):
     def __init__(self,radio):
         self.radio = radio
     def areaCir(self):
@@ -36,23 +45,23 @@ class Circulo:
         perimetro = 2*(math.pi)*(self.radio)
         return perimetro
 
-class Triangulo:
+class Triangulo(Figuras):
     def __init__(self,base,altura):
         self.base = base
         self.altura = altura
     def areaTri(self):
         area = ((self.base)*(self.altura))/2
         return area
-    def PeriTri(self):
-        perimetro = (self.base) + (self.altura) + self.hipotenusa()
+    def periTri(self):
+        perimetro = (self.base) + (self.altura) + self.hipo()
         return perimetro
-    def hipotenusa(self):
+    def hipo(self):
         hipotenusa = math.sqrt((math.pow(self.base,2))+(math.pow(self.altura,2)))
         return hipotenusa
     def TipoTri(self):
-        if self.base == self.altura and self.base == self.hipotenusa():
+        if self.base == self.altura and self.base == self.hipo():
             return "Equilatero"
-        elif self.base != self.altura and self.base != self.hipotenusa():
+        elif self.base != self.altura and self.base != self.hipo():
             return "Escaleno"
         else:
             return "Isosceles"
@@ -62,7 +71,7 @@ def Interfaz_cuadrado():
         lado = float(ladoCU.get())
         cuadrado = Cuadrado(lado)
         area = cuadrado.areaCu()
-        perimetro = cuadrado.PeriCu()
+        perimetro = cuadrado.periCu()
         if lado > 0:
             messagebox.showinfo("Información del cuadrado", f"Área: {area}\nPerímetro: {perimetro}")
         else:
@@ -74,7 +83,7 @@ def Interfaz_rectangulo():
         altura = float(AlturaRec.get())
         rectangulo = Rectangulo(base, altura)
         area = rectangulo.areaRec()
-        perimetro = rectangulo.PeriRec()
+        perimetro = rectangulo.periRec()
         if base > 0 and altura > 0:
             messagebox.showinfo("Información del rectángulo", f"Área: {area}\nPerímetro: {perimetro}")
         else:
@@ -97,7 +106,7 @@ def Interfaz_triangulo():
         altura = float(AlturaTri.get())
         triangulo = Triangulo(base, altura)
         area = triangulo.areaTri()
-        perimetro = triangulo.PeriTri()
+        perimetro = triangulo.periTri()
         tipo = triangulo.TipoTri()
         if base > 0 and altura > 0:
              messagebox.showinfo("Información del triángulo",f"Área: {area}\nPerímetro: {perimetro}\nTipo: {tipo}")
